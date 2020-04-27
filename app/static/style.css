@@ -1,0 +1,53 @@
+/* imail scaling */
+/*.card-img-top
+{
+	height: 20rem;
+    width: 20rem;
+    /*margin-right: 1rem;
+}
+*/
+
+
+/* square edges */
+.square-edges, .card
+{
+	border-radius: 0;
+}
+
+/* styling all forms border radius */
+.form-control {
+    border-radius: 0;
+}
+
+/* styling about company textarea */
+#about {
+    height: 200px;
+    resize: none;
+}
+
+/* styling all buttons */
+.btn-secondary {
+    border-radius: 0;
+    background-color: rgb(23, 162, 184);
+
+}
+
+/* styling message textarea */
+#message {
+    height: 170px;
+    resize: none;
+}
+
+/* styling image in messages */
+.message_img {
+    width: 50px;
+}
+
+#message_id {
+    text-decoration: none;
+}
+.alert {
+    margin-top: 4rem;
+}
+
+

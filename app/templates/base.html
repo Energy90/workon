@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        {% block styles %}
+        <!-- Bootstrap CSS, FONT AWSOME and Custom CSS -->
+        {{ bootstrap.load_css() }}
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+        {% endblock styles %}
+
+        {% if title %}
+            <title>WorkOn - {{ title }}</title>
+        {% else %}
+            <title>WorkOn</title>
+        {% endif %}
+    </head>
+    <body>
+        <header id="head">
+            <!-- begin navigation -->
+            {% from 'bootstrap/nav.html' import render_nav_item %}
+            <nav class="navbar navbar-expand-md navbar-light bg-light border fixed-top">
+                <a class="navbar-brand" href="#">WorkOn</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    
+                    <ul class="navbar-nav mr-auto mt-2">
+                    {% if current_user.is_authenticated %}
+                        {{ render_nav_item('main.companies', 'Home', use_li=True) }}
+                    {% else %}
+                        {{ render_nav_item('main.index', 'Home', use_li=True) }}
+                    {% endif %}
+                    </ul>
+                    <ul class="navbar-nav mt-2 justify-content-end">
+                    {% if current_user.is_authenticated %}
+                        <li class="nav-link">
+                            <a href="{{ url_for('main.message') }}" class="text-muted" id="message_id">{{ 'Messages' }}
+                                {% set new_message = current_user.new_message() %}
+                                <span id="message_count" class="badge badge-info"
+                                 style="visibility: {% if new_message %}visible
+                                                    {% else %}hidden{% endif %};">
+                                    {{ new_messages }}
+                                </span>
+                            </a>
+                        </li>
+                        {% if current_user.company %}
+                            {{ render_nav_item('main.user', 'Profile', use_li=True, username=current_user.username) }}
+                        {% else %}
+                            {{ render_nav_item('main.update', 'Profile', use_li=True, username=current_user.username) }}
+                        {% endif %}
+                        {{ render_nav_item('auth.logout', 'Logout', use_li=True) }}
+                    {% else %}
+                        {{ render_nav_item('auth.login', 'Login', use_li=True) }}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Register
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ url_for('auth.register') }}">Client</a>
+                                <a class="dropdown-item" href="{{ url_for('auth.register_company') }}">Company</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- alert messages -->
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, messages in messages %}
+                    <div class="alert alert-{{ category }} border text-center square-edges" role="alert">
+                        {{ messages }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <!-- begin main page -->
+        <main role="main" class="container m-5">
+
+            <!-- page content -->
+            {% block main %}{% endblock main %}
+        </main>
+        <!-- end main page -->
+
+        <!-- begin footer -->
+        <footer class="container-fluid">
+            {% block footer %}{% endblock footer %}
+            <small>Design by <a href="https://cmalindi.co.za">Clarence</a></small>
+
+        </footer>
+        <!-- end footer -->
+        {% block scripts %}
+        <!-- Javascript -->
+        {{ bootstrap.load_js() }}
+        <script>
+            function set_message_count(n) {
+            $('#message_count').text(n);
+            $('#message_count').css('visibility', n ? 'visible' : 'hidden');
+        }
+        function set_task_progress(task_id, progress) {
+            $('#' + task_id + '-progress').text(progress);
+        }
+        {% if current_user.is_authenticated %}
+        $(function() {
+            var since = 0;
+            setInterval(function() {
+                $.ajax('{{ url_for('main.notifications') }}?since=' + since).done(
+                    function(notifications) {
+                        for (var i = 0; i < notifications.length; i++) {
+                            switch (notifications[i].name) {
+                                case 'unread_message_count':
+                                    set_message_count(notifications[i].data);
+                                    break;
+                                case 'task_progress':
+                                    set_task_progress(notifications[i].data.task_id,
+                                        notifications[i].data.progress);
+                                    break;
+                            }
+                            since = notifications[i].timestamp;
+                        }
+                    }
+                );
+            }, 10000);
+        });
+        {% endif %}
+        </script>
+        {% endblock scripts %}
+    </body>
+</html>

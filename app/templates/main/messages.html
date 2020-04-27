@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h1 class="mt-5">{{ 'Messages' }}</h1>
+    {% for message in messages %}
+        <div>
+            <table class="table table-hover">
+                <tr>
+                    {% if message.sender.company %}
+                    <td width="10%">
+                        
+                        <img src="{{ url_for('static', filename='profile_pics/' + message.sender.image) }}" class="message_img"/> 
+                                       
+                        <p>
+                            <a href="{{ url_for('main.user', username=message.sender.username) }}">                           
+                                 {{ message.sender.company }}        
+                            </a>
+                        </p>                      
+                    </td>
+                    {% else %}
+                    <td width="10%">
+                        <img src="{{ message.sender.avatar(70) }}" class="message_img"/>
+                        <p>{{ message.sender.username }}</p>
+                    </td>
+                    {% endif %}
+                    <td width="80%">
+                        <span>
+                            <p>{{ message.body }}</p>
+                        </span>
+                    </td>
+                    <td width="10%">
+                        <a href="{{ url_for('main.send_message', recipient=message.sender.username) }}" class="text-right">Reply</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    {% endfor %}
+
+{% endblock main %}

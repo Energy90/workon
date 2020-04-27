@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% from "bootstrap/form.html" import render_form, form_errors %}
+
+{% block main %}
+<div class="row mt-5">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="card square-edges">
+            <div class="card-header">Sign Up</div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ render_form(form, button_map={'submit':'info my-4 btn-block square-edges'}) }}
+                    {{ form_errors(form) }}
+                </form>
+            </div>
+            <small class="text-muted">
+                <a href="{{ url_for('auth.register_company') }}">Create company account.</a>
+            </small>
+            <div class="card-footer">
+                <p>  
+                    <small class="text-muted">
+                        <!-- TODO LATER -->
+                        Already Have An Acount? <a class="ml-2" href="url_for('auth.login') }}">login</a>
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+{% endblock main %}

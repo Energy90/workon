@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% from "bootstrap/form.html" import render_form, form_errors %}
+{% block main %}
+    <div class="row mt-4">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="media">
+                <img class="account-image" src="{{ current_user.avatar(256) }}" alt="profile">
+            </div>
+            <div class="mt-4">
+                <h4>Account Info:</h4>
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {{ render_form(form, button_map={'submit':'info my-4 button-block, square-edges'}) }}
+                    {{ form_errors(form)}}
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+{% endblock main %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% from "bootstrap/form.html" import render_field,render_form_row, form_errors %}
+
+{% block main %}
+<div class="row mt-5">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="card square-edges">
+            <div class="card-header">Sign up</div>
+            <div class="card-body">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {{ form.csrf_token() }}
+                    {{ render_form_row([form.username, form.companyName]) }}
+                    {{ render_form_row([form.email, form.phoneNumber]) }}
+                    {{ render_form_row([form.password, form.confirmPassword]) }}
+                    {{ render_form_row([form.about]) }}
+                    {{ render_form_row([form.logo]) }}
+                    {{ render_form_row([form.submit]) }}
+                    {% if form.logo.errors %}
+                        {% for error in form.logo.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                    {{ form_errors(form) }}
+                </form>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">
+                    <a href="{{ url_for('auth.register') }}">Create client account.</a>
+                </small>
+                <small class="text-muted">
+                    <!-- TODO LATER -->
+                    Already Have An Account? <a class="ml-2" href="{{ url_for('auth.login') }}">login</a>
+                </small>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+{% endblock main %}

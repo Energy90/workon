@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% from "bootstrap/form.html" import render_field,render_form_row, form_errors %}
+
+{% block main %}
+<div class="row mt-5">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <img class="logo text-center" src="{{ image_file }}">
+        <div class="media">
+            <div class="mt-4 media-body">
+                <h4>Account Info:</h4>
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {{ form.csrf_token() }}
+                    {{ render_form_row([form.username, form.companyName]) }}
+                    {{ render_form_row([form.email, form.phoneNumber]) }}
+                    {{ render_form_row([form.about]) }}
+                    {{ render_form_row([form.logo]) }}
+                    {{ render_form_row([form.submit]) }}
+                    {% if form.logo.errors %}
+                        {% for error in form.logo.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
+                    {% endif %}
+                    {{ form_errors(form) }}
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+{% endblock main %}

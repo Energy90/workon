@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block main %}
+<div class="content">
+    <h1>You don't have permission to do that.</h1>
+    <p>Please check your account and try again.</p>
+    <p><a href="{{ url_for('main.companies') }}">Back</a></p>
+</div>
+{% endblock %}

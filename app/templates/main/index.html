@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% from 'bootstrap/pagination.html' import render_pagination, render_pager %}
+{% block main %}
+    <div class="row row-cols-4 row-cols-md-4">
+        {% for company in company %}
+            <div class="col-md-3 mb-4">
+                <div class="card h-100">
+                    <img src="{{ url_for('static', filename='profile_pics/' + company.image) }}" class="card-img-top" alt="image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ company.company }}</h5>
+                        <p class="card-text">{{ company.phone }}<br>{{ company.email }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock main %}
+
+{% block footer %}
+    {{ render_pagination(pagination, align='center') }}
+{% endblock footer %}
