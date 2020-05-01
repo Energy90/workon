@@ -3,7 +3,7 @@
 {% from 'bootstrap/form.html' import render_form, form_errors %}
 {% block main %}
     <h1 class="text-center mt-5">{{ recipient }}</h1>
-    <div class="row">
+    <div class="row com_index">
         <div class="col-md-4"></div>
         <div class="col-md-4">
             {{ render_form(form, button_map={'send message':'info my-4 button-block, square-edges'}) }}
