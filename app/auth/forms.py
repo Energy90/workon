@@ -9,7 +9,7 @@ from app.models import User
 # and user validation
 class UserSignUpForm(FlaskForm):
     username = StringField("",validators=[DataRequired(), Length(min=2, max=30)], render_kw={"placeholder":"Username"})
-    email = StringField("",validators=[DataRequired(), Email() Length(max=100)], render_kw={"placeholder":"Email"})
+    email = StringField("",validators=[DataRequired(), Email(), Length(max=100)], render_kw={"placeholder":"Email"})
     password = PasswordField("",validators=[DataRequired(), Length(min=4, max=30)], render_kw={"placeholder":"Password"})
     confirmPassword = PasswordField("", validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder":"Confirm Password"})
 
