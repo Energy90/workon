@@ -50,7 +50,7 @@
     margin-top: 4rem;
 }
 
-#profile-img {
+.logo {
     width: 100%;
 }
 
@@ -59,5 +59,18 @@
 {
     h1 {
         font-size: 2rem;
+    }
+    .container, .p-5 {
+        padding-left: 0.5rem!important;
+        padding-right: 0.5rem!important;
+    }
+
+    .row, .pt-4 {
+        padding: 2rem;
+    }
+
+    .media {
+        text-align: center;
+        display: block;
     }
 }
