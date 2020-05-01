@@ -3,7 +3,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'e4041756bd26481e8e3762e18c5d9b98'
-'
+
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'workon.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
