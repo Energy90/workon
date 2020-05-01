@@ -16,3 +16,5 @@ class Config(object):
     MAIL_USE_SSL = True
     SECURITY_EMAIL_SENDER = os.environ.get('USERNAME')
     MAIL_DEBUG = True
+    LOG_TO_STDOUT = os.environ.get('LOG_TO_STDOUT')
+    ADMINS = ['cmalindi@gmail.com']
