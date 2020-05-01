@@ -9,8 +9,8 @@ from flask_login import current_user
 # and user validation
 
 class UserUpdateForm(FlaskForm):
-    username = StringField("", validators=[DataRequired(), Length(min=2, max=20)], render_kw={"placeholder":"Username"})
-    email = StringField("", validators=[DataRequired(), Email()], render_kw={"placeholder":"Email"})
+    username = StringField("", validators=[DataRequired(), Length(min=2, max=30)], render_kw={"placeholder":"Username"})
+    email = StringField("", validators=[DataRequired(), Email(), Length(max=100)], render_kw={"placeholder":"Email"})
 
     submit = SubmitField('Update')
 
@@ -31,11 +31,11 @@ class UserUpdateForm(FlaskForm):
 # and user validation
 
 class CompanyUpdateForm(FlaskForm):
-    username = StringField("", validators=[DataRequired(), Length(min=2, max=20)], render_kw={"placeholder":"Username"})
-    companyName = StringField("", validators=[DataRequired(), Length(min=2, max=40)], render_kw={"placeholder":"Company Name"})
-    email = StringField("", validators=[DataRequired(), Email()], render_kw={"placeholder":"Email"})
-    phoneNumber = StringField("", validators=[DataRequired(), Length(min=10)], render_kw={"placeholder":"Phone"})
-    about = TextAreaField("", validators=[DataRequired(), Length(min=100)], render_kw={"placeholder":"Brief about company not in less than 100 characters."})
+    username = StringField("", validators=[DataRequired(), Length(min=2, max=30)], render_kw={"placeholder":"Username"})
+    companyName = StringField("", validators=[DataRequired(), Length(min=2, max=90)], render_kw={"placeholder":"Company Name"})
+    email = StringField("", validators=[DataRequired(), Email(), Length(max=100)], render_kw={"placeholder":"Email"})
+    phoneNumber = StringField("", validators=[DataRequired(), Length(min=10, max=15)], render_kw={"placeholder":"Phone"})
+    about = TextAreaField("", validators=[DataRequired(), Length(min=100, max=1900)], render_kw={"placeholder":"Brief about company not in less than 100 characters."})
     logo = FileField('Company Logo', validators=[FileAllowed(['jpg', 'png'])])
 
     submit = SubmitField('Update')

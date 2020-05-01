@@ -23,7 +23,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(64), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     company = db.Column(db.String(120))
-    phone = db.Column(db.String(30), unique=True)
+    phone = db.Column(db.String(30))
     password = db.Column(db.String(128), nullable=False)
     dateCreated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     about = db.Column(db.String(2000))
