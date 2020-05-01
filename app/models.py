@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
     phone = db.Column(db.String(30), unique=True)
     password = db.Column(db.String(128), nullable=False)
     dateCreated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    about = db.Column(db.String(500))
+    about = db.Column(db.String(2000))
     image = db.Column(db.String(30))
     rated = db.relationship(
         'User', secondary=rates,
@@ -113,7 +113,7 @@ class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sender_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     recipient_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    body = db.Column(db.String(140))
+    body = db.Column(db.String(500))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def __ref__(self):
