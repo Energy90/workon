@@ -83,7 +83,7 @@
             {% endif %}
         {% endwith %}
         <!-- begin main page -->
-        <main role="main" class="container m-5">
+        <main role="main" class="container p-5">
 
             <!-- page content -->
             {% block main %}{% endblock main %}
@@ -91,7 +91,7 @@
         <!-- end main page -->
 
         <!-- begin footer -->
-        <footer class="container-fluid">
+        <footer class="container-fluid text-center">
             {% block footer %}{% endblock footer %}
             <small>Design by <a href="https://cmalindi.co.za">Clarence</a></small>
 
@@ -101,13 +101,11 @@
         <!-- Javascript -->
         {{ bootstrap.load_js() }}
         <script>
-            function set_message_count(n) {
+        function set_message_count(n) {
             $('#message_count').text(n);
             $('#message_count').css('visibility', n ? 'visible' : 'hidden');
         }
-        function set_task_progress(task_id, progress) {
-            $('#' + task_id + '-progress').text(progress);
-        }
+
         {% if current_user.is_authenticated %}
         $(function() {
             var since = 0;
@@ -115,16 +113,10 @@
                 $.ajax('{{ url_for('main.notifications') }}?since=' + since).done(
                     function(notifications) {
                         for (var i = 0; i < notifications.length; i++) {
-                            switch (notifications[i].name) {
-                                case 'unread_message_count':
-                                    set_message_count(notifications[i].data);
-                                    break;
-                                case 'task_progress':
-                                    set_task_progress(notifications[i].data.task_id,
-                                        notifications[i].data.progress);
-                                    break;
+                            if (notifications[i].name == 'unread_message_count') {
+                                set_message_count(notifications[i].data);                            
+                                since = notifications[i].timestamp;
                             }
-                            since = notifications[i].timestamp;
                         }
                     }
                 );

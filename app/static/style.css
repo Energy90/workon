@@ -40,7 +40,7 @@
 
 /* styling image in messages */
 .message_img {
-    width: 50px;
+    width: 4rem;
 }
 
 #message_id {
@@ -50,4 +50,14 @@
     margin-top: 4rem;
 }
 
+#profile-img {
+    width: 100%;
+}
 
+
+@media (max-width: 767px)
+{
+    h1 {
+        font-size: 2rem;
+    }
+}

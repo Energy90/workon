@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<table class="table table-hover mt-5">
-    <tr>
-        <td width="256px"><img src="{{ url_for('static', filename='profile_pics/' + user.image) }}"></td>
-        <td>
+<div class="mt-5">
+    <div class="row">
+        <div class="col-md-4 p-2"><img src="{{ url_for('static', filename='profile_pics/' + user.image) }}" id="profile-img"></div>
+        <div class="col-md-8">
             <h1>{{ user.company }}</h1>
             <p>{{ 'Phone' }}: {{ user.phone }}</p>
             <p>{{ 'Email' }}: {{ user.email }}</p>
-            <p>{{ user.likes.count() }} stars </p>
+            <p>{{ user.rates.count() }} stars </p>
             {% if user == current_user %}
                 {% if user.company %}
                 <p><a href="{{ url_for('main.update_company') }}">{{ 'Update Profile' }}</a></p>
@@ -16,7 +16,7 @@
                 <!-- LATER USE -->
                 <p><a href="{{ url_for('main.update') }}">{{ 'Update Profile' }}</a></p>
                 {% endif %}
-            {% elif not current_user.is_like(user) %}
+            {% elif not current_user.is_rate(user) %}
             <p><a href="{{ url_for('main.rate', username=user.username) }}">
                     <i class="fas fa-star"></i>
                 </a>
@@ -31,13 +31,13 @@
             {% if user != current_user %}
             <p><a href="{{ url_for('main.send_message', recipient=user.username) }}">{{ 'Send Message' }}</a></p>
             {% endif %}
-        </td>
-    </tr>
-    <tr>
-        <td>{{ 'About:' }}</td>
-        <td>
+        </div>
+    </div>
+    <div class="row about-col">
+        <div class="col-md-4" >{{ 'About:' }}</div>
+        <div class="col-md-8">
             {{ user.about }}
-        </td>
-    </tr>
-</table>
+        </div>
+    </div>
+</div>
 {% endblock main %}

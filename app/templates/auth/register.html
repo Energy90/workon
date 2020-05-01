@@ -10,17 +10,16 @@
             <div class="card-body">
                 <form method="POST" action="">
                     {{ render_form(form, button_map={'submit':'info my-4 btn-block square-edges'}) }}
-                    {{ form_errors(form) }}
                 </form>
             </div>
-            <small class="text-muted">
+            <small class="text-muted ml-2">
                 <a href="{{ url_for('auth.register_company') }}">Create company account.</a>
             </small>
             <div class="card-footer">
                 <p>  
-                    <small class="text-muted">
+                    <small class="text-muted ml-2">
                         <!-- TODO LATER -->
-                        Already Have An Acount? <a class="ml-2" href="url_for('auth.login') }}">login</a>
+                        Already Have An Acount? <a href="url_for('auth.login') }}">login</a>
                     </small>
                 </p>
             </div>

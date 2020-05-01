@@ -8,10 +8,10 @@ from app.models import User
 # form for user registration
 # and user validation
 class UserSignUpForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=4, max=20)])
-    confirmPassword = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    username = StringField("",validators=[DataRequired(), Length(min=2, max=20)], render_kw={"placeholder":"Username"})
+    email = StringField("",validators=[DataRequired(), Email()], render_kw={"placeholder":"Email"})
+    password = PasswordField("",validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder":"Password"})
+    confirmPassword = PasswordField("", validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder":"Confirm Password"})
 
     submit = SubmitField('Sign Up')
 
@@ -28,13 +28,13 @@ class UserSignUpForm(FlaskForm):
 
 # form company registration
 class CompanySignUpForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    companyName = StringField('Company Name', validators=[DataRequired(), Length(min=2, max=40)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    phoneNumber = StringField('Phone (e.g 078)', validators=[DataRequired(), Length(min=10)])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=4, max=20)])
-    confirmPassword = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    about = TextAreaField('Brief about the company', validators=[DataRequired(), Length(min=40)])
+    username = StringField("", validators=[DataRequired(), Length(min=2, max=20)], render_kw={"placeholder":"Username"})
+    companyName = StringField("", validators=[DataRequired(), Length(min=2, max=40)], render_kw={"placeholder":"Company Name"})
+    email = StringField("", validators=[DataRequired(), Email()], render_kw={"placeholder":"Email"})
+    phoneNumber = StringField("", validators=[DataRequired(), Length(min=10)], render_kw={"placeholder":"Phone"})
+    password = PasswordField("", validators=[DataRequired(), Length(min=4, max=20)], render_kw={"placeholder":"Password"})
+    confirmPassword = PasswordField("", validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder":"Confirm Password"})
+    about = TextAreaField("", validators=[DataRequired(), Length(min=50)], render_kw={"placeholder":"Brief about company not in less than 50 words"})
     logo = FileField('Company Logo', validators=[DataRequired(), FileAllowed(['jpg', 'jpeg', 'png'])])
 
     submit = SubmitField('Sign Up')
@@ -53,16 +53,16 @@ class CompanySignUpForm(FlaskForm):
 
 # form for login
 class LogInForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField("", validators=[DataRequired()], render_kw={"placeholder":"Username"})
+    password = PasswordField("", validators=[DataRequired()], render_kw={"placeholder":"Password"})
     remember_me = BooleanField('Remember')
 
     submit = SubmitField('Log In')
 
 
-# form for resetting
+# form for requesting reset password
 class RequestResetForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    email = StringField("", validators=[DataRequired(), Email()], render_kw={"placeholder":"Email"})
     submit = SubmitField("Request Password Reset")
 
     def validate_email(self, email):
@@ -73,6 +73,6 @@ class RequestResetForm(FlaskForm):
 
 # form for resetting password
 class ResetPasswordForm(FlaskForm):
-    password = StringField('Password', validators=[DataRequired()])
-    confirmPassword = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    submit = SubmitField('Request Password Reset')
+    password = PasswordField("", validators=[DataRequired(), Length(min=4, max=30)], render_kw={"placeholder":"New Password"})
+    confirmPassword = PasswordField("", validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder":"Confirm Password"})
+    submit = SubmitField('Reset Password')
