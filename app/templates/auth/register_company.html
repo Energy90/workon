@@ -14,13 +14,7 @@
                     {{ render_form_row([form.email, form.phoneNumber]) }}
                     {{ render_form_row([form.password, form.confirmPassword]) }}
                     {{ render_form_row([form.about]) }}
-                    {{ render_form_row([form.logo]) }}
                     {{ render_form_row([form.submit]) }}
-                    {% if form.logo.errors %}
-                        {% for error in form.logo.errors %}
-                        <span class="text-danger">{{ error }}</span>
-                        {% endfor %}
-                    {% endif %}
                     {{ form_errors(form) }}
                 </form>
             </div>

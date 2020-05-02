@@ -9,7 +9,7 @@
                     {% if message.sender.company %}
                     <td width="10%">
                         
-                        <img src="{{ url_for('static', filename='profile_pics/' + message.sender.image) }}" class="message_img"/> 
+                        <img src="{{ message.sender.avatar(70) }}" class="message_img"/> 
                                        
                         <p>
                             <a href="{{ url_for('main.user', username=message.sender.username) }}">                           
@@ -19,7 +19,7 @@
                     </td>
                     {% else %}
                     <td width="10%">
-                        <img src="{{ message.sender.avatar(70) }}" class="message_img"/>
+                        <img src="{{ message.sender.user_avatar(70) }}" class="message_img"/>
                         <p>{{ message.sender.username }}</p>
                     </td>
                     {% endif %}

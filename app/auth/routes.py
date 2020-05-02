@@ -5,7 +5,7 @@ from app import db
 from app.auth import bp
 from app.auth.forms import (LogInForm, UserSignUpForm, RequestResetForm, ResetPasswordForm, CompanySignUpForm)
 from app.models import User
-from app.auth.utils import save_picture, send_reset_email
+from app.auth.utils import send_reset_email
 
 # login
 @bp.route('/login', methods=['GET', 'POST'])
@@ -53,8 +53,8 @@ def register_company():
         return redirect(url_for('main.companies'))
     form = CompanySignUpForm()
     if form.validate_on_submit():
-        picture = save_picture(form.logo.data)
-        user = User(username=form.username.data, email=form.email.data, about=form.about.data, image=picture, company=form.companyName.data, phone=form.phoneNumber.data)
+        # picture = save_picture(form.logo.data)
+        user = User(username=form.username.data, email=form.email.data, about=form.about.data, company=form.companyName.data, phone=form.phoneNumber.data)
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()

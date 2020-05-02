@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, TextAreaField, SubmitField
-from flask_wtf.file import FileField, FileAllowed
+# from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from app.models import User
 
@@ -35,7 +35,8 @@ class CompanySignUpForm(FlaskForm):
     password = PasswordField("", validators=[DataRequired(), Length(min=4, max=30)], render_kw={"placeholder":"Password"})
     confirmPassword = PasswordField("", validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder":"Confirm Password"})
     about = TextAreaField("", validators=[DataRequired(), Length(min=100, max=1900)], render_kw={"placeholder":"Brief about company not in less than 100 characters"})
-    logo = FileField('Company Logo', validators=[DataRequired(), FileAllowed(['jpg', 'jpeg', 'png'])])
+    '''  TODO NEXT TIME '''
+    # logo = FileField('Company Logo', validators=[DataRequired(), FileAllowed(['jpg', 'jpeg', 'png'])])
 
     submit = SubmitField('Sign Up')
 

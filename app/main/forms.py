@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
+# from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User
@@ -36,7 +36,7 @@ class CompanyUpdateForm(FlaskForm):
     email = StringField("", validators=[DataRequired(), Email(), Length(max=100)], render_kw={"placeholder":"Email"})
     phoneNumber = StringField("", validators=[DataRequired(), Length(min=10, max=15)], render_kw={"placeholder":"Phone"})
     about = TextAreaField("", validators=[DataRequired(), Length(min=100, max=1900)], render_kw={"placeholder":"Brief about company not in less than 100 characters."})
-    logo = FileField('Company Logo', validators=[FileAllowed(['jpg', 'png'])])
+    # logo = FileField('Company Logo', validators=[FileAllowed(['jpg', 'png'])])
 
     submit = SubmitField('Update')
 

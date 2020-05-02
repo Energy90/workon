@@ -1,11 +1,12 @@
 import os
 import secrets
-from PIL import Image
+# from PIL import Image
 from flask import url_for
 from app.email import send_email
 from flask import current_app
 
 # method for resizing and saving a picture
+'''
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
@@ -16,6 +17,7 @@ def save_picture(form_picture):
     i.thumbnail(output_size)
     i.save(picture_path)
     return picture_fn
+'''
 
 # password reset method
 def send_reset_email(user):

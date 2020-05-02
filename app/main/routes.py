@@ -5,7 +5,7 @@ from app import db
 from app.main.forms import UserUpdateForm, MessageForm, CompanyUpdateForm
 from app.models import User, Message, Notification
 from app.main import bp
-from app.auth.utils import save_picture
+# from app.auth.utils import save_picture
 
 # home page if not signed in
 @bp.route('/', methods=['GET', 'POST'])
@@ -146,9 +146,11 @@ def update_company():
         current_user.email = form.email.data
         current_user.phone = form.phoneNumber.data
         current_user.about = form.about.data
+        '''
         if form.logo.data:
             picture_file = save_picture(form.logo.data)
             current_user.image = picture_file
+        '''
         db.session.commit()
         flash('Your changes have been saved', 'success')
         return redirect(url_for('main.update_company'))
@@ -158,5 +160,5 @@ def update_company():
         form.companyName.data = current_user.company
         form.phoneNumber.data = current_user.phone
         form.about.data = current_user.about
-    image_file = url_for('static', filename='profile_pics/' + current_user.image)
-    return render_template('main/update_company.html', title='Company Profile', image_file=image_file, form=form)
+    # image_file = url_for('static', filename='profile_pics/' + current_user.image)
+    return render_template('main/update_company.html', title='Company Profile', form=form)

@@ -7,7 +7,7 @@
         <div class="col-md-3 mb-4">
             <div class="card h-100">
                 <a href="{{ url_for('main.user', username=company.username) }}" class="h-100">
-                    <img src="{{ url_for('static', filename='profile_pics/' + company.image) }}" class="card-img-top" alt="Image">
+                    <img src="{{ company.avatar(256) }}" class="card-img-top" alt="Image">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title">

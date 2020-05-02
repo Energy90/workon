@@ -79,6 +79,10 @@ class User(db.Model, UserMixin):
     def avatar(self, size):
         digest = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(digest, size)
+
+    def user_avatar(self, size):
+        digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=monsterid&s={}'.format(digest, size)
         
     
     # methods for reset passwords and generating tokens
