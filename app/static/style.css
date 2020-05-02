@@ -66,14 +66,11 @@
     }
 
     .com_index {
-        padding: 2rem;
+        margin: 1rem;
     }
 
     #user-avatar {
         text-align: center;
         display: block;
-    }
-    .logo {
-        width: 100%;
     }
 }

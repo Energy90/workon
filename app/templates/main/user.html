@@ -3,7 +3,7 @@
 {% block main %}
 <div class="mt-5 com_index">
     <div class="row">
-        <div class="col-md-4 p-2"><img src="{{ user.avatar(256) }}" class="logo"></div>
+        <div class="col-md-4 p-2" id="user_avatar"><img src="{{ user.avatar(256) }}" class="logo"></div>
         <div class="col-md-8">
             <h1>{{ user.company }}</h1>
             <p>{{ 'Phone' }}: {{ user.phone }}</p>
