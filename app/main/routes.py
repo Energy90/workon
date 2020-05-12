@@ -11,27 +11,14 @@ from app.main import bp
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
 def index():
-    if current_user.is_authenticated:
-        return redirect(url_for('main.companies'))
     page = request.args.get('page', 1, type=int)
     company_names = User.query.filter(User.company != None)
     pagination = company_names.order_by(User.company).paginate(
         page, current_app.config['COMPANY_PER_PAGE'], False)
     company = pagination.items
-    flash('You are not logged in, loggin so you can view companies profile', 'warning')
+    if not current_user.is_authenticated:
+    	flash('You are not logged in, loggin so you can view companies profile', 'warning')
     return render_template('main/index.html', title='Home', pagination=pagination, company=company)
-
-# home page once you signed in
-@bp.route('/companies', methods=['GET', 'POST'])
-@login_required
-def companies():
-    page = request.args.get('page', 1, type=int)
-    company_names = User.query.filter(User.company != None)
-    pagination = company_names.order_by(User.company).paginate(
-        page, current_app.config['COMPANY_PER_PAGE'], False)
-    company = pagination.items 
-    return render_template('main/companies.html', title='Companies', pagination=pagination, company=company)
-
 
 # company full details
 @bp.route('/user/<username>')

@@ -1,22 +1,39 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 
-{% from 'bootstrap/pagination.html' import render_pagination, render_pager %}
+{% from 'bootstrap/pagination.html' import render_pagination %}
 {% block main %}
-    <div class="row row-cols-4 row-cols-md-4 com_index">
+    <div class="row row-cols-4 row-cols-md-4 pt-4 com_index">
         {% for company in company %}
-            <div class="col-md-3 mb-4">
-                <div class="card h-100">
-                    <img src="{{ company.avatar(256) }}" class="card-img-top" alt="image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ company.company }}</h5>
-                        <p class="card-text">{{ company.phone }}<br>{{ company.email }}</p>
-                    </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('main.user', username=company.username) }}" class="h-100">
+                    <img src="{{ company.avatar(256) }}" class="card-img-top" alt="Image">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ url_for('main.user', username=company.username) }}">
+                        {{ company.company }}
+                        </a>
+                    </h5>
+                    <p class="card-text">{{ company.phone }}<br>{{ company.email }}</p>
                 </div>
+                <div class="card-footer text-center">
+                    <small class="text-muted">{{ company.rates.count() }} Stars</small>
+                </div>
+             {% else %}
+             	<img src="{{ company.avatar(256) }}" class="card-img-top" alt="image">
+                <div class="card-body">
+                    <h5 class="card-title">{{ company.company }}</h5>
+                    <p class="card-text">{{ company.phone }}<br>{{ company.email }}</p>
+                </div>
+              {% endif %}
             </div>
+        </div>
         {% endfor %}
     </div>
-{% endblock main %}
+{% endblock %}
 
 {% block footer %}
-    {{ render_pagination(pagination, align='center') }}
+    {{ render_pagination(pagination, ellipses='...', align='center') }}
 {% endblock footer %}

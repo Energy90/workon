@@ -1,4 +1,4 @@
-from flask import Flask, request, current_app
+from flask import Flask, request, current_app, g
 import os
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
@@ -6,16 +6,18 @@ from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
-from config import Config
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
+from flask_sijax import Sijax
 
-app = Flask(__name__)
+
+
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()
 mail = Mail()
 bootstrap = Bootstrap()
+sijax = Sijax()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -26,6 +28,7 @@ def create_app(config_class=Config):
     login.init_app(app)
     mail.init_app(app)
     bootstrap.init_app(app)
+    sijax.init_app(app)
 
     from app.errors import errors as errors_bp
     app.register_blueprint(errors_bp)
