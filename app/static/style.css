@@ -55,6 +55,10 @@
 }
 */
 
+.card {
+    box-shadow: .1rem .1rem #888;
+}
+
 @media (max-width: 767px)
 {
     h1 {

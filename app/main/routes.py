@@ -1,11 +1,10 @@
 from datetime import datetime
-from flask import render_template, flash, redirect, url_for, request, jsonify, current_app
+from flask import render_template, flash, redirect, url_for, request, jsonify, current_app, g
 from flask_login import current_user, login_required
 from app import db
 from app.main.forms import UserUpdateForm, MessageForm, CompanyUpdateForm
 from app.models import User, Message, Notification
 from app.main import bp
-# from app.auth.utils import save_picture
 
 # home page if not signed in
 @bp.route('/', methods=['GET', 'POST'])
@@ -34,7 +33,7 @@ def user_popup(username):
     return render_template('main/user_popup.html', user=user)
 
 # rate a company
-@bp.route('/rate/<username>')
+@bp.route('/rate<username>')
 @login_required
 def rate(username):
     user = User.query.filter(User.company != None).filter_by(username=username).first()
@@ -48,6 +47,8 @@ def rate(username):
     db.session.commit()
     flash("You rated %s" % username, "primary")
     return redirect(url_for('main.user', username=username))
+        
+    
 
 # unrate a company 
 @bp.route('/unrate/<username>')
@@ -133,11 +134,6 @@ def update_company():
         current_user.email = form.email.data
         current_user.phone = form.phoneNumber.data
         current_user.about = form.about.data
-        '''
-        if form.logo.data:
-            picture_file = save_picture(form.logo.data)
-            current_user.image = picture_file
-        '''
         db.session.commit()
         flash('Your changes have been saved', 'success')
         return redirect(url_for('main.update_company'))
@@ -147,5 +143,4 @@ def update_company():
         form.companyName.data = current_user.company
         form.phoneNumber.data = current_user.phone
         form.about.data = current_user.about
-    # image_file = url_for('static', filename='profile_pics/' + current_user.image)
     return render_template('main/update_company.html', title='Company Profile', form=form)

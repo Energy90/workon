@@ -7,10 +7,8 @@
             <table class="table table-hover">
                 <tr>
                     {% if message.sender.company %}
-                    <td width="10%">
-                        
-                        <img src="{{ message.sender.avatar(70) }}" class="message_img"/> 
-                                       
+                    <td width="10%">                       
+                        <img src="{{ message.sender.avatar(70) }}" class="message_img"/>                                       
                         <p>
                             <a href="{{ url_for('main.user', username=message.sender.username) }}">                           
                                  {{ message.sender.company }}        

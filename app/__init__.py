@@ -8,9 +8,6 @@ from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
-from flask_sijax import Sijax
-
-
 
 db = SQLAlchemy()
 migrate = Migrate()
