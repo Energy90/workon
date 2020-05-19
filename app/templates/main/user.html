@@ -17,7 +17,7 @@
                 <p><a href="{{ url_for('main.update') }}">{{ 'Update Profile' }}</a></p>
                 {% endif %}
             {% elif not current_user.is_rate(user) %}
-            <p><a href="javascript://" onclick="Sijax.request('rateUser');">
+            <p><a href="{{ url_for('main.rate', username=user.username) }}">
                     <i class="fas fa-star"></i>
                 </a>
             </p>
