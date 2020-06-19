@@ -16,7 +16,7 @@ def index():
         page, current_app.config['COMPANY_PER_PAGE'], False)
     company = pagination.items
     if not current_user.is_authenticated:
-    	flash('You are not logged in, loggin so you can view companies profile', 'warning')
+    	flash('You are not logged in, loggin so you can view companies profile', 'danger')
     return render_template('main/index.html', title='Home', pagination=pagination, company=company)
 
 # company full details
@@ -33,7 +33,7 @@ def user_popup(username):
     return render_template('main/user_popup.html', user=user)
 
 # rate a company
-@bp.route('/rate<username>')
+@bp.route('/rate/<username>')
 @login_required
 def rate(username):
     user = User.query.filter(User.company != None).filter_by(username=username).first()
